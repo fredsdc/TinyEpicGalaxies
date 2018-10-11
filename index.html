@@ -1,0 +1,68 @@
+<!--
+    JavaScript Animated D6 Dice Roller - Proper Installation Verification 
+
+    Written in 2005 by Michael K. Eidson, mike@eposic.org, http://eposic.org 
+
+    To the extent possible under law, the author(s) have dedicated all
+    copyright and related and neighboring rights to this software to the
+    public domain worldwide. This software is distributed without any warranty. 
+
+    You should have received a copy of the CC0 Public Domain Dedication along
+    with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>. 
+-->
+<html>
+<head>
+<title>Tiny Epic Galaxies</title>
+<script type='text/javascript' src='d6.js'></script>
+</head>
+<body>
+<div style="display: inline-block;">
+  <img src="d1.gif" onclick="newdice(1);" style='float: left;' />
+  <img src="d2.gif" onclick="newdice(2);" style='float: left;' />
+  <img src="d3.gif" onclick="newdice(3);" style='float: left;' />
+  <img src="d4.gif" onclick="newdice(4);" style='float: left;' />
+  <img src="d5.gif" onclick="newdice(5);" style='float: left;' />
+  <img src="d6.gif" onclick="newdice(6);" style='float: left;' />
+  <img src="d7.gif" onclick="newdice(7);" style='float: left;' />
+</div>
+<script type='text/javascript'>
+D6.dice(7);
+document.getElementById('diceall').style.display = 'none';
+nr = 1
+
+function newdice(nd) {
+  var roll = document.createElement('div');
+  var diceall = document.getElementById('diceall')
+  var els = diceall.getElementsByClassName('die');
+
+  for (var i=0, max=els.length; i < max; i++ ) {
+    if ( diceall.style.display != 'none' ) {
+      if ( els[i].style.display != 'none' ) {
+        var el = document.createElement('img');
+        el.src = els[i].src;
+        roll.appendChild(el);
+      }
+    }
+    if ( i < nd ) {
+      els[i].style.display = '';
+    } else {
+      els[i].style.display = 'none';
+    }
+  }
+
+  if ( diceall.style.display != 'none' ) {
+    roll.innerHTML += '<div style="display: inline-block; position: absolute; padding: 48 0 0 8;">Roll ' + nr++ + '</div>'
+    document.body.insertBefore(roll, diceall.nextSibling.nextSibling);
+    document.getElementById('dicekeep').innerHTML = '';
+    diceall.nextSibling.style.display = '';
+  } else {
+    diceall.style.display = 'inline-block';
+    diceall.previousSibling.style.display = '';
+  }
+
+  D6AnimBuilder.get("dice").reset();
+  D6AnimBuilder.get("dice").start();
+}
+</script>
+</body>
+</html>
